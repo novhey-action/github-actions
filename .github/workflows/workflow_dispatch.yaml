@@ -5,7 +5,7 @@ on:
       name:
         description: "set name"
         required: true
-        default: "github-action"
+        default: "github-actions"
         type: string
       environment:
         description: "set env"
