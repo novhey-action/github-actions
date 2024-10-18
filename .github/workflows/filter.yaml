@@ -1,7 +1,7 @@
 name: branch filter
 on:
   push:
-    branches: ["dev"]
+    branches: ["v1.0.0"]
 
 jobs:
   branch-filter:
