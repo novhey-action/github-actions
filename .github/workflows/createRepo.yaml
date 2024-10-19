@@ -32,12 +32,14 @@ jobs:
         if: always()
         uses: slackapi/slack-github-action@v1.27.0
         with:
+          channel-id: github-actions
           payload: |
             {
-              "attachment": [
+              "text": "create repo result",
+              "attachments": [
                 {
-                  "pretext": "create repo result",
-                  "color": "28a745",
+                  "pretext": "create repo result!!",
+                  "color": "dbab09",
                   "fields": [
                     {
                       "title": "create repo result ${{ steps.create-repo.outcome }}",
