@@ -1,0 +1,57 @@
+name: issue-alarm
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  issue-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: critical notify
+        if: contains(${{ github.event.issue.title }}, 'critical')
+        with:
+          channel-id: critical-issue
+          payload: |
+            {
+              "text": "CRITICAL_ISSUE_UPLOADED",
+              "attachments": [
+                {
+                  "pretext": "critical issue",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "ciritical issue is uploaded",
+                      "short": true,
+                      "value": "${{ github.event.issue.title }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      - name: normal notify
+        if: contains(${{ github.event.issue.title }}, 'normal')
+        with:
+          channel-id: normal-issue
+          payload: |
+            {
+              "text": "NORMAL_ISSUE_UPLOADED",
+              "attachments": [
+                {
+                  "pretext": "normal issue",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "normal issue is uploaded",
+                      "short": true,
+                      "value": "${{ github.event.issue.title }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
