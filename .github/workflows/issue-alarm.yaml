@@ -7,6 +7,8 @@ jobs:
   issue-job:
     runs-on: ubuntu-latest
     steps:
+      - name: echo
+        run: echo ${{ github.event.issue.title }}
       - name: critical notify
         if: contains(${{ github.event.issue.title }}, 'critical')
         uses: slackapi/slack-github-action@v1.27.0
