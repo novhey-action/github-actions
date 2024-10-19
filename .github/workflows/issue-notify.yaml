@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: ${{ needs.get-keyword.outputs.level }}
+        environment: ["${{ needs.get-keyword.outputs.level }}"]
     environment: ${{ matrix.environment }}
     steps:
       - name: slack
