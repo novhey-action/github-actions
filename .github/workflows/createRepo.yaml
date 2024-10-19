@@ -2,21 +2,28 @@ name: Create Repository
 on:
   workflow_dispatch:
     inputs:
-      repo-name:
-        description: "Name of the repository to be created"
+      prefix:
+        description: "set repo prefix"
         required: true
-        default: ""
+        default: "service"
+        type: choice
+        options:
+          - example
+          - service
+      name:
+        description: "set repo name"
+        required: true
+        default: "github-actions"
+        type: string
 
 jobs:
   create-repository:
     runs-on: ubuntu-latest
     name: Creating Organization Repository
     steps:
-      - name: Creating Github Organization Repository
-        uses: repo-ctrl/create-repo-action@main
-        id: create-repo
-        with:
-          repo-name: "${{ github.event.inputs.repo-name }}"
-          org-admin-token: "${{ github.ORG_ADMIN_TOKEN }}"
-      - name: Log URL to the repo
-        run: echo "The new repo is ${{ steps.create-repo.outputs.repo-url }}"
+      - name: gh auth login
+        run: |
+          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | gh auth login --with-token
+      - name: create-repo
+        run: |
+          gh repo create novhey-action/${{ inputs.prefix }}-${{ inputs.name }} --public --add-readme
