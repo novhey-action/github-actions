@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: critical notify
         if: contains(${{ github.event.issue.title }}, 'critical')
+        uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: critical-issue
           payload: |
@@ -33,6 +34,7 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - name: normal notify
         if: contains(${{ github.event.issue.title }}, 'normal')
+        uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: normal-issue
           payload: |
