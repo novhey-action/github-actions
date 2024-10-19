@@ -4,13 +4,11 @@ on:
     types: [opened]
 
 jobs:
-  issue-job:
+  critical-issues:
     runs-on: ubuntu-latest
+    if: contains(${{ github.event.issue.title }}, 'critical')
     steps:
-      - name: echo
-        run: echo ${{ github.event.issue.title }}
       - name: critical notify
-        if: contains(${{ github.event.issue.title }}, 'critical')
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: critical-issue
@@ -34,8 +32,12 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.CRITICAL_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+  normal-issues:
+    runs-on: ubuntu-latest
+    if: contains(${{ github.event.issue.title }}, 'normal')
+    steps:
       - name: normal notify
-        if: contains(${{ github.event.issue.title }}, 'normal')
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: normal-issue
