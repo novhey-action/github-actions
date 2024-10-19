@@ -23,7 +23,7 @@ jobs:
                     {
                       "title": "ciritical issue is uploaded",
                       "short": true,
-                      "value": "${{ github.event.issue.title }}"
+                      "value": github.event.issue.title
                     }
                   ]
                 }
@@ -52,7 +52,7 @@ jobs:
                     {
                       "title": "normal issue is uploaded",
                       "short": true,
-                      "value": "${{ github.event.issue.title }}"
+                      "value": github.event.issue.title
                     }
                   ]
                 }
